@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <link rel="stylesheet" href="thankyou.css">
+</head>
+<body>
+    <div class="thank-you-container">
+        <h1>Thank You! 😊</h1>
+        <div id="message"></div>
+        <p>We will inform you soon about the results, second-round details, and interview schedule. Stay tuned!</p>
+        <!-- Adding an onclick handler directly to the button -->
+        <button onclick="window.location.href='tea.html';">Back to Home</button>
+    </div>
+
+    <script>
+        // Retrieve the user’s name and club name from the URL
+        function getQueryParameter(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        const name = getQueryParameter("name");
+        const club = getQueryParameter("club");
+
+        // Display a personalized message
+        const messageDiv = document.getElementById("message");
+        if (name && club) {
+            messageDiv.innerHTML = `<h2>Thank you, ${name}, for registering for ${club}!</h2>`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <link rel="stylesheet" href="feedback.css">
+</head>
+<body>
+
+    <!-- Feedback Form Section -->
+    <div class="feedback-container">
+        <h2>Submit Your Feedback</h2>
+        <form id="feedback-form">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="rating">Rating:</label>
+            <select id="rating" name="rating" required>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Very Good</option>
+                <option value="5">5 - Excellent</option>
+            </select><br><br>
+
+            <label for="feedback">Your Feedback:</label><br>
+            <textarea id="feedback" name="feedback" rows="4" cols="50" required></textarea><br><br>
+
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+
+    <!-- JavaScript to handle form submission and redirection -->
+    <script>
+        document.getElementById('feedback-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevents the form from submitting normally
+
+            // Capture the data from the form
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const rating = document.getElementById('rating').value;
+            const feedback = document.getElementById('feedback').value;
+
+            // Store feedback data (you could send it to a backend server here)
+            console.log('Feedback Submitted:', { name, email, rating, feedback });
+
+            // Display a thank you message (optional)
+            alert('Thank you for your feedback!');
+
+            // Redirect to the home page (adjust URL if necessary)
+            window.location.href = 'tea.html'; // This will redirect back to the home page
+        });
+    </script>
+
+</body>
+</html>

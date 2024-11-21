@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Division Layout with Interactive Blocks</title>
+    <style>
+        body {
+            font-family: "Playfair Display", sans-serif;
+            margin: 0;
+            padding: 0;
+             /* Background color for the page */
+            background-image: url('c.avif');
+            background-repeat:no-repeat;
+            background-size:cover;
+            
+        }
+
+        h1 {
+            font-family: "Playfair Display",serif;
+            color: #0e0e0f; /* Text color for the heading */
+            
+            text-align: center;
+            margin: 20px;
+            font-size:40 px;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh; /* Full viewport height */
+           
+        }
+
+        .division {
+            flex: 1; /* Equal width for each division */
+            padding: 10px;
+            box-sizing: border-box;
+            overflow: auto; /* Allow scrolling if content overflows */
+            font-size:30px;
+        }
+
+        .map-container, .info-container {
+            position: relative;
+            width: 100%;
+            height: 80%; /* Fill the division */
+
+            border: 5px solid #171515;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+            background-image: url(hp.jpg);
+           
+        
+        }
+
+        /* Styling for the dialog box */
+        .dialog-box {
+            position: absolute;
+            background-color: rgba(35, 26, 104, 0.8);
+            color: #f8f7fc; /* Light parchment color */
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            z-index: 10;
+            pointer-events: none;
+            
+            font-size: 14px;
+            font-weight: bold;
+            max-width: 200px;
+            text-align: center;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+
+        .map-area, .info-block {
+            position: absolute;
+            cursor: pointer;
+            border: 2px solid #131415; /* Border color */
+            border-radius: 10px;
+            background-color: #544086; /* Light brown with a magical tint */
+            color: #f7f5f3; /* Dark text color for contrast */
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+       
+
+        .map-area:hover, .info-block:hover {
+            opacity: 0.9; /* Slightly more visible on hover */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7); /* Shadow for hover effect */
+        }
+
+        /* Styling for the first division blocks */
+        .map-area:nth-of-type(1) { top: 20px; left: 2px; width: 150px; height: 100px; }
+        .map-area:nth-of-type(2) { top: 20px; left: 160px; width: 160px; height: 50px; }
+        .map-area:nth-of-type(3) { top: 20px; left: 325px; width: 137px; height: 100px; }
+        .map-area:nth-of-type(4) { top: 130px; left: 120px; width: 250px; height: 300px; }
+        .map-area:nth-of-type(5) { top: 460px; left: 170px; width: 150px; height: 100px; }
+        .map-area:nth-of-type(6) { top: 460px; left: 330px; width: 150px; height: 100px; }
+
+        /* Adjusting positioning for the auditoriums */
+        #Auditorium-1 {
+            bottom: 10px;
+            right: 170px; /* Adjusted to fit within the container */
+            width: 150px;
+            height: 100px;
+        }
+
+        #Auditorium-2 {
+            bottom: 10px;
+            right: 10px;
+            width: 130px;
+            height: 100px;
+        }
+
+        /* Styling for the second division blocks */
+        .info-block:nth-of-type(1) { top: 130px; left: 120px; width: 250px; height: 300px; }
+        .info-block:nth-of-type(2) { top: 10px; left: 5px; width: 450px; height: 90px; }
+        .info-block:nth-of-type(3) { top: 450px; left: 5px; width: 450px; height: 90px; }
+
+        /* Styling for the third division blocks */
+        .info-block:nth-of-type(4) { top: 90px; left: 20px; width: 150px; height: 100px; }
+        .info-block:nth-of-type(5) { top: 190px; left: 190px; width: 150px; height: 100px; }
+        .info-block:nth-of-type(6) { top: 490px; left: 190px; width: 150px; height: 100px; }
+    </style>
+</head>
+<body>
+    <h1>GJBC block</h1>
+    <div class="container">
+        <!-- First Division with Map -->
+        <div class="division">
+            <div class="map-container">
+                <div class="map-area" id="Cafe" 
+                     onmouseover="showTooltip(event, 'Cafe', '8:00 AM - 6:00 PM')" 
+                     onmouseout="hideTooltip()">Cafe</div>
+                <div class="map-area" id="Entrance" 
+                     onmouseover="showTooltip(event, 'Entrance', 'Open 24/7')" 
+                     onmouseout="hideTooltip()">Entrance</div>
+                <div class="map-area" id="Admission-Counters" 
+                     onmouseover="showTooltip(event, 'Admission Counters', '9:00 AM - 5:00 PM')" 
+                     onmouseout="hideTooltip()">Admission Counters</div>
+                <div class="map-area" id="Basketball-Court" 
+                     onmouseover="showTooltip(event, 'Basketball Court', '7:00 AM - 10:00 PM')" 
+                     onmouseout="hideTooltip()">Basketball Court</div>
+                <div class="map-area" id="Auditorium-1" 
+                     onmouseover="showTooltip(event, 'Auditorium 1', '9:00 AM - 8:00 PM')" 
+                     onmouseout="hideTooltip()">Auditorium 1</div>
+                <div class="map-area" id="Auditorium-2" 
+                     onmouseover="showTooltip(event, 'Auditorium 2', '9:00 AM - 8:00 PM')" 
+                     onmouseout="hideTooltip()">Auditorium 2</div>
+                <div class="dialog-box" id="dialog-box"></div>
+            </div>
+        </div>
+
+        <!-- Second Division with Blocks -->
+        <div class="division">
+            <div class="info-container">
+                <div class="info-block" id="Basketball-Court-Info" 
+                     onmouseover="showTooltip(event, 'Basketball Court', 'Open 7:00 AM - 10:00 PM')" 
+                     onmouseout="hideTooltip()">Basketball Court</div>
+                <div class="info-block" id="Canteen" 
+                     onmouseover="showTooltip(event, 'Canteen', 'Open 8:00 AM - 6:00 PM')" 
+                     onmouseout="hideTooltip()">Canteen</div>
+                <div class="info-block" id="Test-Center" 
+                     onmouseover="showTooltip(event, 'Test Center', '9:00 AM - 5:00 PM')" 
+                     onmouseout="hideTooltip()">Test Center</div>
+            </div>
+        </div>
+
+        <!-- Third Division with Blocks -->
+        <div class="division">
+            <div class="info-container">
+                <div class="info-block" id="Library" 
+                     onmouseover="showTooltip(event, 'Library', 'Open 8:00 AM - 8:00 PM')" 
+                     onmouseout="hideTooltip()">Library</div>
+                <div class="info-block" id="Hornbill-Canteen" 
+                     onmouseover="showTooltip(event, 'Hornbill Canteen', 'Open 7:00 AM - 7:00 PM')" 
+                     onmouseout="hideTooltip()">Hornbill Canteen</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTooltip(event, place, timings) {
+            var dialogBox = document.getElementById('dialog-box');
+            dialogBox.innerHTML = `<strong>${place}</strong><br>${timings}`;
+            dialogBox.style.display = 'block';
+            dialogBox.style.left =` ${event.pageX + 10}px;` // Position to the right of the cursor
+            dialogBox.style.top = `${event.pageY + 10}px;` // Position below the cursor
+        }
+
+        function hideTooltip() {
+            var dialogBox = document.getElementById('dialog-box');
+            dialogBox.style.display = 'none';
+        }
+        function checkIn(biometricId, block) {
+            fetch('/checkin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ biometricId, block }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Example function to handle check-out
+        function checkOut(biometricId) {
+            fetch('/checkout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ biometricId }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

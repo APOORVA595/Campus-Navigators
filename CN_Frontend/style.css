@@ -1,0 +1,80 @@
+/* General Page Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: url('c.avif') no-repeat center center fixed; /* Background image */
+  background-size:cover; /* Ensures the image covers the entire screen */
+  color: #333; /* Dark text color for readability */
+  text-align: center;
+}
+
+/* Container Styling */
+.container {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.69); /* Semi-transparent white background */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Section */
+header h1 {
+  font-size: 3rem;
+  color: #2d1e74; /* Blue color for header text */
+  margin-bottom: 15px;
+  font-family: 'Playfair Display',serif;
+}
+
+/* Content Section */
+.container p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+.container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.container ul li {
+  font-size: 2rem;
+  margin: 10px 0;
+}
+
+/* Button Styling */
+button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #391886; /* Blue button color */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #005bb5; /* Darker blue on hover */
+}
+
+/* Mobile-Friendly Design */
+@media (max-width: 768px) {
+  .container {
+    margin: 20px;
+    padding: 15px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+}

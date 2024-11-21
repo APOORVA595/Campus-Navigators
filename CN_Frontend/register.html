@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Registration</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header">
+        <h1>Club Registration</h1>
+    </div>
+
+    <!-- Registration Form -->
+    <div class="form-container">
+        <form id="registration-form" onsubmit="submitForm(event)">
+            <h2 id="club-name">Register for Club</h2>
+            
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department" placeholder="Your Department" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required>
+
+            <label for="reason">Why do you want to join?</label>
+            <textarea id="reason" name="reason" placeholder="Tell us why..." required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // Get the club name from the URL
+        function getQueryParameter(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Display the club name and set background
+        const clubName = getQueryParameter("club");
+        const body = document.body;
+
+        if (clubName) {
+            document.getElementById("club-name").innerText = `Register for ${clubName}`;
+            
+            // Set aesthetic backgrounds for specific clubs
+            if (clubName.toLowerCase() === "coding club") {
+                body.style.backgroundImage = "url('coding-background.jpg')";
+            } else if (clubName.toLowerCase() === "robotics club") {
+                body.style.backgroundImage = "url('robotics-background.jpg')";
+            } else {
+                body.style.backgroundImage = "url('default-background.jpg')";
+            }
+
+            body.style.backgroundSize = "cover";
+            body.style.backgroundRepeat = "no-repeat";
+        }
+
+        // Handle form submission
+        function submitForm(event) {
+            event.preventDefault(); // Prevent form reload
+            
+            const name = document.getElementById("name").value;
+            
+            // Redirect to Thank You page with user’s name and club name in the URL
+            window.location.href = `thankyou.html?name=${encodeURIComponent(name)}&club=${encodeURIComponent(clubName)}`;
+        }
+        
+    </script>
+</body>
+</html>

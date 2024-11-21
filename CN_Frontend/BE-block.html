@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BE block </title>
+    <style>
+        body {
+            background-image: url('c.avif'); /* Set your BE block background image URL here */
+            background-size: cover; /* Ensures the image covers the entire div */
+            text-align:center;
+            background-color: rgb(235, 232, 232);
+            
+        }
+        .building-map {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px;
+            background-position: center; /* Centers the background image */
+            padding: 20px;
+            border: 3px solid #333;
+            width: 18%;  /* Adjust width as needed */
+            margin: 0 auto; /* Center the map on the page */
+            position: relative;
+            
+        }
+        .floor {
+            position: relative;
+            background-color:rgba(0,0,128,0.6);
+            color: #efeff5;
+            padding: 15px;
+            text-align: center;
+            width: 200px;
+            margin: 0 auto;
+            border: 1px solid #333;
+        }
+
+        /* Arrow shape using pseudo-elements */
+        .floor::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 20px solid #333;
+            transform: translateY(-100%);
+        }
+
+        .floor::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -20px;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid #333;
+        }
+            
+        
+        .info-popup {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 200px;
+            background: #2e1977;
+            border: 1px solid #ccc;
+            padding: 5px;
+            z-index: 10;
+        }
+        .floor:hover .info-popup {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<h1 >BE block Map</h1>
+
+<div class="building-map">
+    <div class="floor" id="basement">Basement</div>
+    <div class="floor" id="ground-floor">Ground Floor</div>
+    <div class="floor" id="floor-1">Floor 1</div>
+    <div class="floor" id="floor-2">Floor 2</div>
+    <div class="floor" id="floor-3">Floor 3</div>
+    <div class="floor" id="floor-4">Floor 4</div>
+    <div class="floor" id="floor-5">Floor 5</div>
+    <div class="floor" id="floor-6">Floor 6</div>
+    <div class="floor" id="floor-7">Floor 7</div>
+    <div class="floor" id="floor-8">Floor 8</div>
+    <div class="floor" id="floor-9">Floor 9</div>
+    <div class="floor" id="floor-10">Floor 10</div>
+    <div class="floor" id="floor-11">Floor 11</div>
+    <div class="floor" id="floor-12">Floor 12 (Clubs)</div>
+    <div class="floor" id="floor-13">Floor 13 (Library & Cafeteria)</div>
+</div>
+
+<script>
+const floorData = {
+    'basement': {
+        staff: ['John Doe', 'Jane Smith'],
+        classrooms: 2,
+        courses: ['Computer Science']
+    },
+    'ground-floor': {
+        staff: ['Alice Johnson', 'Mark Davis'],
+        classrooms: 4,
+        courses: ['Computer Science']
+    },
+    'floor-1': {
+        staff: ['Emily Clark', 'Robert Brown'],
+        classrooms: 5,
+        courses: ['Computer Science']
+    },
+    'floor-2': {
+        staff: ['Michael White', 'Sarah Lee'],
+        classrooms: 6,
+        courses: ['Computer Science']
+    },
+    'floor-3': {
+        staff: ['Rachel Green', 'Monica Geller'],
+        classrooms: 4,
+        courses: ['AIML']
+    },
+    'floor-4': {
+        staff: ['Chandler Bing', 'Ross Geller'],
+        classrooms: 7,
+        courses: ['AIML']
+    },
+    'floor-5': {
+        staff: ['Phoebe Buffay', 'Joey Tribbiani'],
+        classrooms: 5,
+        courses: ['ECE']
+    },
+    'floor-6': {
+        staff: ['Bruce Wayne', 'Clark Kent'],
+        classrooms: 4,
+        courses: ['ECE']
+    },
+    'floor-7': {
+        staff: ['Diana Prince', 'Barry Allen'],
+        classrooms: 3,
+        courses: ['ECE']
+    },
+    'floor-8': {
+        staff: ['Peter Parker', 'Tony Stark'],
+        classrooms: 6,
+        courses: ['Architecture']
+    },
+    'floor-9': {
+        staff: ['Steve Rogers', 'Natasha Romanoff'],
+        classrooms: 5,
+        courses: ['Architecture']
+    },
+    'floor-10': {
+        staff: ['Bruce Banner', 'Wanda Maximoff'],
+        classrooms: 7,
+        courses: ['Design']
+    },
+    'floor-11': {
+        staff: ['Thor Odinson', 'Loki'],
+        classrooms: 4,
+        courses: ['Design']
+    },
+    'floor-12': {
+        clubs: ['Science Club', 'Drama Club', 'Music Club', 'Debate Club']
+    },
+    'floor-13': {
+        features: ['Silent Reflection Library', 'Cafeteria']
+    }
+};
+
+const floors = document.querySelectorAll('.floor');
+floors.forEach(floor => {
+    const id = floor.id;
+    if (floorData[id]) {
+        const { staff, classrooms, courses, clubs, features } = floorData[id];
+        if (staff && classrooms && courses) {
+            floor.innerHTML += `
+                <div class="info-popup">
+                    <strong>Staff:</strong> ${staff.join(', ')}<br>
+                    <strong>Classrooms:</strong> ${classrooms}<br>
+                    <strong>Courses:</strong> ${courses.join(', ')}
+                </div>
+            `;
+        } else if (clubs) {
+            floor.innerHTML += `
+                <div class="info-popup">
+                    <strong>Clubs:</strong> ${clubs.join(', ')}
+                </div>
+            `;
+        } else if (features) {
+            floor.innerHTML += `
+                <div class="info-popup">
+                    <strong>Features:</strong> ${features.join(', ')}
+                </div>
+            `;
+        }
+    }
+});
+</script>
+
+</body>
+</html>

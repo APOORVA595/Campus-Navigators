@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Campus Map</title>
+    <link rel="stylesheet" href="map.css">
+    
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header">
+        <h1>PES University Grounds</h1>
+        <h2>Explore the Campus</h2>
+    </div>
+
+    <!-- Logo Section -->
+    <div class="topleft">
+        <img src="pesu.jpg" alt="Pesu logo" style="width: 250px; height: auto; border-radius: 10px; padding:12px;margin:15px;">
+    </div>
+
+    <!-- Teacher Status Check (now positioned in the top right corner) -->
+    <div class="teacher-status-container">
+        <div class="teacher-status">
+            <label for="teacher-name">Enter Teacher's Name:</label><br>
+            <input type="text" id="teacher-name" placeholder="e.g. Prof. Alice">
+            <button onclick="checkTeacherLocation()">Check</button>
+        </div>
+        <div id="result" class="status-message"></div>
+    </div>
+
+    <!-- Map Section -->
+    <div class="map-container">
+        <div class="map-block" id="mechanical-lab">Mechanical Lab</div>
+        <div class="road"></div> <!-- Adding the vertical road here -->
+        <div class="map-block" id="GJBC-block" onclick="navigateTo('GJBC-block')">GJBC Block</div>
+        <div class="map-block" id="BE-block" onclick="navigateTo('BE-block')">BE Block</div>
+        <div class="map-block" id="F-block" onclick="navigateTo('F-block')">F-block</div>
+        <div class="map-block" id="parking-lot">Parking Lot</div>
+        <div class="map-block" id="MRD-block" onclick="navigateTo('MRD-block')">MRD Block</div>
+    </div>
+    <!-- Clubs Block -->
+    <div id="main-container">
+        <div id="upcoming-clubs-container">
+            <div id="upcoming-events">
+                <h2>Upcoming Events</h2>
+                <div class="event">
+                    <strong>Coding Hackathon</strong>
+                    <p>Date: September 20, 2024<br>Location: GJBC Block<br>Time: 3pm</p>
+                </div>
+                <div class="event">
+                    <strong>Robotics Workshop</strong>
+                    <p>Date: September 25, 2024<br>Location: F Block<br>Time: 2pm</p>
+                </div>
+            </div>
+            <div id="club-list">
+                <h3>Clubs</h3>
+                <div class="club">
+                    <strong>Coding Club</strong>
+                    <p>Explore coding challenges and build projects.</p>
+                </div>
+                <div class="club">
+                    <strong>Robotics Club</strong>
+                    <p>Work on robotics projects and participate in competitions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;" class="button-container">
+        <button onclick="navigateTo('about')" style="background-color: #391886; color: white; padding: 10px 20px; border: none; border-radius: 5px;">About Us</button>
+        <button onclick="navigateTo('contact')" style="background-color: #391886; color: white; padding: 10px 20px; border: none; border-radius: 5px;">Contact</button>
+        <button onclick="navigateTo('team')" style="background-color: #391886; color:white; padding: 10px 20px; border: none; border-radius: 5px;">Team</button>"
+        <button onclick="navigateTo('feedback')" style="background-color: #391886; color: white; padding: 10px 20px; border: none; border-radius: 5px;">FeedBack Form</button>
+    </div>
+    
+
+</div>
+
+    <!-- JavaScript to handle navigation and search -->
+    
+    <script src="teacher.js"></script>
+    <script src="server.js"></script>
+    <script>
+        function navigateTo(location) {
+            window.location.href = location + '.html'; // Redirect to the corresponding page
+        }
+
+        const events = [
+            
+            { name: "Coding Hackathon", date: "September 20, 2024", location: "GJBC Block", time: "3pm" },
+            { name: "Robotics Workshop", date: "September 25, 2024", location: "F Block", time: "2pm" }
+        ];
+
+        const clubs = [
+            { name: "Coding Club", description: "Join the coding club for competitions and workshops." },
+            { name: "Robotics Club", description: "Join the robotics club for hands-on robot building." }
+        ];
+
+        // Function to handle teacher location search
+        async function checkTeacherLocation() {
+            const teacherName = document.getElementById('teacher-name').value.trim();
+            const resultDiv = document.getElementById('result');
+
+            if (!teacherName) {
+                resultDiv.innerText = 'Please enter a teacher\'s name.';
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:3000/api/teachers/${teacherName}`);
+                const teacherData = await response.json();
+
+                if (teacherData) {
+                    resultDiv.innerHTML = `
+                        <strong>${teacherData.name}</strong><br>
+                        <strong>Current Location:</strong> ${teacherData.currentLocation}<br>
+                        <strong>Staffroom:</strong> ${teacherData.staffroom}<br>
+                        <strong>Floor:</strong> ${teacherData.floor}
+                    `;
+                }
+            } catch (err) {
+                resultDiv.innerText = 'Teacher not found.';
+                console.error('Error fetching teacher data:', err);
+            }
+        }
+
+        // Helper function for navigation (to use later)
+        function navigateTo(location) {
+            window.location.href = location + '.html'; // Redirect to the corresponding page
+        }
+        function navigateTo(page) {
+  window.location.href = page + '.html';
+}
+
+        
+        function displayEvents() {
+            const upcomingEventsDiv = document.getElementById("upcoming-events");
+            upcomingEventsDiv.innerHTML = "<h3>Upcoming Events</h3>";
+            events.forEach(event => {
+                upcomingEventsDiv.innerHTML += `
+                    <div class="event">
+                        <strong>${event.name}</strong><br>
+                        Date: ${event.date}<br>
+                        Location: ${event.location}<br>
+                        Time: ${event.time}
+                    </div>
+                `;
+            });
+        }
+
+        function displayClubs() {
+            const clubListDiv = document.getElementById("club-list");
+            clubListDiv.innerHTML = "<h3>Clubs</h3>";
+            clubs.forEach(club => {
+                clubListDiv.innerHTML += `
+                    <div class="club">
+                        <strong>${club.name}</strong><br>
+                        ${club.description}<br>
+                        <button class="register-button" onclick="registerForClub('${club.name}')">Register</button>
+                    </div>
+                `;
+            });
+        }
+
+        function registerForClub(clubName) {
+            window.location.href = `register.html?club=${encodeURIComponent(clubName)}`;
+        }
+
+        
+
+        window.onload = function() {
+            displayEvents();
+            displayClubs();
+        };
+    </script>
+</body>
+</html>

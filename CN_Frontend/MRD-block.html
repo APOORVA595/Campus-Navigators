@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Building Map</title>
+    <style>
+        body {
+            
+            text-align:center;
+           
+            background-image: url('c.avif');
+            background-repeat:no-repeat;
+            background-size:cover;
+        }
+        .building-map {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px;
+            
+            /* Set your BE block background image URL here */
+            background-size: cover; /* Ensures the image covers the entire div */
+            background-position: center; /* Centers the background image */
+            padding: 20px;
+            border: 2px solid #333;
+            width: 70%;  /* Adjust width as needed */
+            margin: 0 auto; /* Center the map on the page */
+            position: relative;
+        }
+        .floor {
+            border: 1px solid #fcbd93;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            background-color:#59479ada;
+            font-size:20px;
+            color:#f3f1f1;
+        }
+        .info-popup {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 200px;
+            background: #361372;
+            border: 1px solid #ccc;
+            padding: 10px;
+            z-index: 10;
+        }
+        .floor:hover .info-popup {
+            display: block;
+        }
+        h1{
+            font-size:34px;
+        }
+    </style>
+
+    
+</head>
+<body>
+
+<h1 >MRD Block</h1>
+
+<div class="building-map">
+    <div class="floor" id="basement">Basement: MCA Classes & Staffrooms</div>
+    <div class="floor" id="ground-floor">GroundFloor: Auditorium1 entry-1 and Accounts, Scholarship & Admission Department</div>
+    <div class="floor" id="floor-1">Floor1:Auditorium1 entry-2 and Classes & StaffRooms</div>
+    <div class="floor" id="floor-2">Floor2:Classes & StaffRooms</div>
+    <div class="floor" id="floor-3">Floor3:Classes & StaffRooms</div>
+</div>
+
+<script>
+const floorData = {
+    'basement': {
+        staff: ['John Doe', 'Jane Smith'],
+        classrooms: 2,
+        courses: ['MCA']
+    },
+    'ground-floor': {
+        staff: ['Alice Johnson', 'Mark Davis'],
+        classrooms: 4
+    },
+    'floor-1': {
+        staff: ['Emily Clark', 'Robert Brown'],
+        classrooms: 5,
+        courses: ['MCA']
+    },
+    'floor-2': {
+        staff: ['Michael White', 'Sarah Lee'],
+        classrooms: 6,
+        courses: ['Computer Science']
+    },
+    'floor-3': {
+        staff: ['Rachel Green', 'Monica Geller'],
+        classrooms: 4,
+        courses: ['AIML']
+    }
+};
+
+const floors = document.querySelectorAll('.floor');
+floors.forEach(floor => {
+    const id = floor.id;
+    if (floorData[id]) {
+        const { staff, classrooms, courses, clubs, features } = floorData[id];
+        if (staff && classrooms && courses) {
+            floor.innerHTML += `
+                <div class="info-popup">
+                    <strong>Staff:</strong> ${staff.join(', ')}<br>
+                    <strong>Classrooms:</strong> ${classrooms}<br>
+                    <strong>Courses:</strong> ${courses.join(', ')}
+                </div>
+            `;
+        } else if (clubs) {
+            floor.innerHTML += `
+                <div class="info-popup">
+                    <strong>Clubs:</strong> ${clubs.join(', ')}
+                </div>
+            `;
+        } else if (features) {
+            floor.innerHTML += `
+                <div class="info-popup">
+                    <strong>Features:</strong> ${features.join(', ')}
+                </div>
+                `;
+        }
+    }
+});
+</script>
+
+</body>
+</html>

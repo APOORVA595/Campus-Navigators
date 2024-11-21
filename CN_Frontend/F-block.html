@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PES University F-BLOCK Map</title>
+</head>
+<body>
+    <div class="building">
+        <h1>PES University F-BLOCK</h1>
+        <div class="floors">
+            <!-- Loop for each floor -->
+            <div class="floor" id="floor-7" onmouseover="showStaff(8)">7th Floor</div>
+            <div class="floor" id="floor-6" onmouseover="showStaff(7)">6th Floor</div>
+            <div class="floor" id="floor-5" onmouseover="showStaff(6)">5th Floor</div>
+            <div class="floor" id="floor-4" onmouseover="showStaff(5)">4th Floor</div>
+            <div class="floor" id="floor-3" onmouseover="showStaff(4)">3rd Floor</div>
+            <div class="floor" id="floor-2" onmouseover="showStaff(3)">2nd Floor</div>
+            <div class="floor" id="floor-1" onmouseover="showStaff(2)">1st Floor</div>
+            <div class="floor" id="floor-ground" onmouseover="showStaff(1)">Ground Floor</div>
+        </div>
+        <div id="staff-info" class="staff-info">Hover over a floor to see staff details.</div>
+    </div>
+    <style>
+        body 
+        {
+        font-family: Adobe 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-size:cover;
+        background-repeat:no-repeat;
+        background-image:url("c.avif");
+        
+    }
+    h1 {
+            font-family: "Playfair Display",serif;
+            color: #0e0e0f; /* Text color for the heading */
+            
+            text-align: center;
+            margin: 20px;
+            font-size:40 px;
+        }
+    .dialog-box {
+            position: absolute;
+            background-color: rgba(35, 26, 104, 0.8);
+            color: #f8f7fc; /* Light parchment color */
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            z-index: 10;
+            pointer-events: none;
+            
+            font-size: 14px;
+            font-weight: bold;
+            max-width: 200px;
+            text-align: center;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+    .building {
+        text-align: center;
+        border: 4px solid #333;
+        padding: 45px;
+        background-color: #dedce7;
+    }
+    
+    .floors {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .floor {
+        padding: 15px;
+        background-color: #5c4894;
+        color: #edeaea;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    
+    .floor:hover {
+        background-color: #2d2063;
+    }
+    s
+    .staff-info {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #101011;
+        border-radius: 5px;
+        min-height: 50px;
+    }
+    </style>
+    <script>function showStaff(floor) {
+        const staffInfo = document.getElementById('staff-info');
+    
+        const staffDetails = {
+            1: "Chem Lab 1 & HOD of S&H Department and Chemistry cycle",
+            2: "Comp Lab 1 & Library 1",
+            3: "Math faculty & Phy Lab 1",
+            4: "Comp Lab 2",
+            5: "HOD of Physics Cycle",
+            6: "Phy Lab 2",
+            7: "Library 2",
+            8: "Mechanics Faculty"
+        };
+    
+        staffInfo.textContent = staffDetails[floor] || "No details available.";
+    }
+    </script>
+</body>
+</html>
